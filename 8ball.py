@@ -1,5 +1,13 @@
 import random
 from rich import print
+from progress.bar import Bar
+import time
+
+bar = Bar('processing', max=100)
+for i in range(100):
+    time.sleep(0.01)
+    bar.next()
+bar.finish()
 
 options = ["[green]Yes.[/green]", "[yellow]Maybe.[/yellow]", "[red]No.[/red]", "[grey2]Don't rush.[/grey2]"]
 print("Ask me a question, and I shall answer you.")

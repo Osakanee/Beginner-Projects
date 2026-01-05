@@ -5,7 +5,11 @@ def counting():
     currentnumber = 0
     wrongtries = 0
     while True:
-        count = int(input("> "))
+        try:
+            count = int(input("> "))
+        except ValueError:
+            print("That's not a number, goodbye.")
+            break
         if count == currentnumber + 1:
             print(currentnumber + 2)
             currentnumber += 2

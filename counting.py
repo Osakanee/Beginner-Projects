@@ -1,9 +1,8 @@
 from rich import print
 
 def counting():
-    global currentnumber
     currentnumber = 0
-    wrongtries = 0
+    wrongtries = 1
     while True:
         try:
             count = int(input("> "))
@@ -12,12 +11,14 @@ def counting():
             break
         if count == currentnumber + 1:
             print(currentnumber + 2)
+            print("Next number is:", currentnumber + 3)
             currentnumber += 2
-        elif wrongtries == 2:
+        elif wrongtries == 3:
             print("You think you're soooo funny huh.")
             break
         else:
             print("[red]Wrong number![/red]")
+            print("Warning", wrongtries)
             wrongtries += 1
 
 print("[yellow]Welcome to counting.py![/yellow]")

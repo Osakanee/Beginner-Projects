@@ -1,14 +1,16 @@
 <div align="center">
 <h1> Beginner projects (Python) </h1>
-All of the projects only for showing what I'm learning and using python for, most of these will use rich and progress for styles
+All of the projects can be used for other ideas and are just for practice and learning for future experience
 <br>
-These projects can be used as ideas for other people, which is why i'm leaving it in this repo.
-<br>
-Any projects of the programming language shown on my profile will be in a separate repo
+Tiny scripts that are not-so-big are not on a folder.
+<br><br>
+</div>
+<h2> Codetons </h2>
+A tiny and simple turn based battle where you can choose one of the 3 codetons to battle Tiny Vin.
 <br><br>
 Requirements - pip:
 <pre>
   pip install rich
   pip install progress
 </pre>
-</div>
+

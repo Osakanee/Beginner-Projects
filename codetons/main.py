@@ -1,118 +1,139 @@
-import time
-import moves
 from rich import print
-battlestarted = False
+import time
+import random
 
-print("Before you start, you must choose your codeton.")
-print("[red]● Java[/red]")
-print("[blue]● Py[/blue][yellow]thon[/yellow]")
-print("[purple]● Cplus[/purple]")
+validcodeton = False
+ongoingbattle = False
+
+# Classes
+
+class Codeton:
+    def __init__(self, name, hp, typ):
+        self.name = name
+        self.hp = hp
+        self.typ = typ
+
+class Moves:
+    def __init__(self, name, dmg, type, owner):
+        self.name = name
+        self.dmg = dmg
+        self.type = type
+        self.owner = owner
+
+
+# all moves my back hurts
+pyburst = Moves("Pyburst", 30, "Electric", "Python")
+matchcase = Moves("MatchCase", 15, "Electric", "Python")
+walkbite = Moves("Bite", 40, "Electric", "Python")
+classfair = Moves("ClassFair", 10, "Normal", "Java")
+coffeeblast = Moves("CoffeeBlast", 25, "Fire", "Java")
+lungebite = Moves("LungeBite", 20, "Dark", "Java")
+leakmemo = Moves("Leakmemo", 30, "Poison", "Cminus")
+cython = Moves("Cython", 25, "Ice", "Cminus")
+ihateyourust = Moves("Ihateyourust", 40, "Dark", "Cminus")
+
+
+#enemy moves
+attacklight = Moves("Light Attack", 10, "Normal", "Vsmart")
+attackmed = Moves("Medium Attack", 30, "Normal", "Vsmart")
+attackheavy = Moves("Heavy Attack", 40, "Normal", "Vsmart")
+
+
+# User codetons
+python = Codeton("Python", 100, "Electric")
+java = Codeton("Java", 135, "Fire")
+cminus = Codeton("Cminus", 95, "Poison")
+
+# Enemy codeton
+vsmart = Codeton("Vsmart", 100, "Normal")
+
+# dicts 
+codetons = {
+    "python": python,
+    "java": java,
+    "cminus": cminus,
+}
+
+moves = {
+    "pyburst": pyburst,
+    "matchcase": matchcase,
+    "walkbite": walkbite,
+    "classfair": classfair,
+    "coffeeblast": coffeeblast,
+    "lungebite": lungebite,
+    "leakmemo": leakmemo,
+    "cython": cython,
+    "ihateyourust": ihateyourust
+}
+
+enemycodeton = { # this shit was never USED cuz i never managed to figure out how to make it work but imma leave it either way
+    "vsmart": vsmart
+}
+
+enemymoves = {
+    "attacklight": attacklight,
+    "attackmed": attackmed,
+    "attackheavy": attackheavy
+}
+
+enemyattacks = [attacklight, attackmed, attackheavy] #randomizer heck yea
+# Beginning
+
+print("Hello, welcome to the world of codeton!")
+time.sleep(0.3)
+print("In this tiny program, you can battle a codeton!")
+time.sleep(0.3)
+print("Choose one between these three:")
+print("You have [yellow]Pyt[/yellow][blue]hon.[/blue]")
+time.sleep(0.3)
+print("Or maybe, [red]Java.[/red]")
+time.sleep(0.4)
+print("Maybe you are up for a harder time and use [medium_turquoise]Cminus.[/medium_turquoise]")
+time.sleep(0.2)
 
 starter = input("> ").lower()
 
-chosen = moves.codetons.get(starter)
-
-match starter:
-    case("java"):
-        validcodeton = True
-        time.sleep(1)
-    case("python"):
-        validcodeton = True
-        time.sleep(1)
-    case("cplus"):
-        validcodeton = True
-        time.sleep(1)
-
-
-
-
-if validcodeton == True:
-    print("[green]Tiny Vin has challenged you to a codeton battle![/green]")
-    time.sleep(2)
-    print("Your moves are...")
-    match starter:
-        case("java"):
-            battlestarted = True
+# valid codeton check
+if starter not in codetons:
+    print("Not an option, quitting the script..") 
+elif starter in codetons:
+    validcodeton = True
+    print("Are you sure you want to choose this codeton?")
+    warning = input("> ").lower()
+    if warning not in ("yes", "no"):
+        print("Not an option.")
+        warning = input("> ").lower()
+    elif warning == "yes":
+        print("Good! The battle shall start.")
+        ongoingbattle = True
+        chosen = codetons[starter]
+    elif warning == "no":
+        print("I see, you may choose again then.")
+        starter = input("> ")
+# battle system
+if validcodeton == True and ongoingbattle == True:
+    while True:
+        randommove = random.choice(enemyattacks)
+        print("Your move!")
+        attack = input("> ").lower()
+        if vsmart.hp <= 0:
+            print("You have defeated Tiny Vin, the keyboard warrior and got 500 Charms!")
+            break # I HATE THIS BREAK TAKING TOO LONG
+        elif codetons[starter].hp <= 0:
+            print("You fainted")
+            break
+        if attack in moves and codetons[starter].name == moves[attack].owner:
+            theattack = moves[attack].dmg
+            themove = moves[attack].name
             time.sleep(0.5)
-            moveslist = ["ClassFair", "CoffeeBlast", "WalkBite", "Growl"]
-            for i in moveslist:
-                print(i)
-        case("python"):
-            battlestarted = True
+            print(codetons[starter].name, "used", themove, "on", vsmart.name, "and dealt", theattack, "damage!")
+            vsmart.hp -= theattack
             time.sleep(0.5)
-            moveslist = ["Match Case", "PyBurst", "Pywalk", "Growl"]
-            for i in moveslist:
-                print(i)
-        case("cplus"): 
-            battlestarted = True
+            print("Enemy has:", vsmart.hp, "hp left")
             time.sleep(0.5)
-            moveslist = ["Leakmemo", "IhateyouRust", "Cython"]
-            for i in moveslist:
-                print(i)
-
-while battlestarted == True:
-    time.sleep(1)
-    print("Your turn!")
-    attack = input("> ").lower().strip()
-    if attack in moves.movescdex and starter == "cplus":
-        moves.vsmart["hp"] -= moves.movescdex[attack]["dmg"]
-        print("[purple]Cplus used[/purple]", moves.movescdex[attack]["name"])
-        print("[blue]Enemy's health[/blue]:", moves.vsmart["hp"])
-    elif attack in moves.movespydex and starter == "python":
-        if "dmg" in moves.movespydex[attack]:
-            moves.vsmart["hp"] -= moves.movespydex[attack]["dmg"]
+            print(f"Enemy used {randommove.name} on your codeton and dealt {randommove.dmg}!")
+            codetons[starter].hp -= randommove.dmg
+            print("Your codeton's current health is:", codetons[starter].hp)
+            time.sleep(0.5)
         else:
-            moves.growl["activated"] = True
-            print("You used growl! Enemy's moves now deal less damage")
-        print("[blue]Py[/blue][yellow]thon[/yellow] used", moves.movespydex[attack]["name"])
-        print("[blue]Enemy's health[/blue]:", moves.vsmart["hp"])
-    elif attack in moves.movesjavdex and starter == "java":
-        if "dmg" in moves.movesjavdex[attack]:
-            moves.vsmart["hp"] -= moves.movesjavdex[attack]["dmg"]
-        else:
-            moves.growl["activated"] = True
-            time.sleep(0.2)
-            print("You used growl! [darkgreen]Enemy's moves now deal less damage[/darkgreen]")
-        print("[red]Java used[/red]", moves.movesjavdex[attack]["name"])
-        print("[blue]Enemy's health[/blue]:", moves.vsmart["hp"])
-    else:
-        print("Move not valid, it's now the enemy's turn.")
-    if starter == "cplus" and moves.vsmart["hp"] > 0:
-        moves.cplus["hp"] -= 10
-        time.sleep(0.2)
-        print("[blue]Vsmart used ignoremistake![/blue], Your codeton lost 10 hp. Current Codeton health:", moves.cplus["hp"])
-    elif starter == "java" and moves.vsmart["hp"] > 0:
-        if moves.growl["activated"] == True:
-            moves.java["hp"] -= (10 - moves.growl["reducdmg"])
-            time.sleep(0.2)
-            print("[blue]Vsmart used ignoremistake![/blue], [darkred]Your codeton lost 8 hp[/darkred]. Current Codeton health:", moves.python["hp"])
-        elif moves.growl["activated"] == False:
-            moves.java["hp"] -= 10
-            time.sleep(0.2)
-            print("[blue]Vsmart used ignoremistake![/blue], [darkred]Your codeton lost 10 hp[/darkred]. Current Codeton health:", moves.python["hp"])
-    elif starter == "python" and moves.vsmart["hp"] > 0:
-        if moves.growl["activated"] == True:
-            moves.python["hp"] -= (10 - moves.growl["reducdmg"])
-            time.sleep(0.2)
-            print("[blue]Vsmart used ignoremistake![/blue], Your codeton lost 8 hp. Current Codeton health:", moves.python["hp"])
-        elif moves.growl["activated"] == False:
-            moves.python["hp"] -= 10
-            time.sleep(0.2)
-            print("[blue]Vsmart used ignoremistake![/blue], Your codeton lost 10 hp. Current Codeton health:", moves.python["hp"])
-    if moves.vsmart["hp"] == 0 or moves.vsmart["hp"] < 0:
-        print("You've won! Congrats!")
-        time.sleep(0.4)
-        break
-    elif starter == "cplus" and moves.cplus["hp"] == 0:
-        print("You lost... you rushed back to overflow center.")
-        time.sleep(0.4)
-        break
-    elif starter == "java" and moves.java["hp"] == 0:
-        print("You lost... you rushed back to overflow center.")
-        time.sleep(0.4)
-        break
-    elif starter == "python" and moves.java["hp"] == 0:
-        print("You lost... you rushed back to overflow center.")
-        time.sleep(0.4)
-        break
-# fix java not getting damage, fix the losing system and fix every bug 
+            print("Invalid move!")

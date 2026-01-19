@@ -15,5 +15,6 @@ Requirements - pip:
 </pre>
 <h3> Projectmaker </h3>
 A script that makes a project folder with assets and src subfolders for you<br>
+Requirements:
 <pre>pip install requirements.txt</pre>
 

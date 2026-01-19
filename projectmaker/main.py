@@ -18,17 +18,18 @@ while True:
     print("〃 Gimme an absolute path to make the folder and the subfolders 〃")
     thestuff = input("> ")
     p = Path(thestuff)
-    if p in bannedlist:
-        print("Not possible to continue your request.")
+    for word in thestuff:
+        if thestuff in bannedlist:
+            print("Unable to continue")
+            thestuff = input("> ")
+            p = Path(thestuff)
+    if thestuff == "exit":
         break
-    elif thestuff == "exit":
-        break
-    if p.is_dir() == False:
+    elif p.is_dir() == False:
         starterkit(p)
     else:
         print("Error, a folder already exists with that name or this isn't an absolute path")
         print("example of absolute path: C:/Users/YourUser/Downloads/YourProject")
-
 
 
 

@@ -1,5 +1,6 @@
 import os 
 from pathlib import Path
+from rich import print
 
 bannedlist = ["C:/System32", "C:/System", "C:/Program Files", "C:/Program Files (x86)", "C:/Windows"]
 
@@ -15,12 +16,12 @@ def starterkit(path):
     requirements.touch()
 
 while True:
-    print("〃 Gimme an absolute path to make the folder and the subfolders 〃")
+    print("〃 [grey2]Gimme an absolute path to make the folder and the subfolders[/grey2] 〃")
     thestuff = input("> ")
     p = Path(thestuff)
     for word in thestuff:
         if thestuff in bannedlist:
-            print("Unable to continue")
+            print("[red]Unable to continue[/red]")
             thestuff = input("> ")
             p = Path(thestuff)
     if thestuff == "exit":
@@ -28,8 +29,8 @@ while True:
     elif p.is_dir() == False:
         starterkit(p)
     else:
-        print("Error, a folder already exists with that name or this isn't an absolute path")
-        print("example of absolute path: C:/Users/YourUser/Downloads/YourProject")
+        print("[red]Error, a folder already exists with that name or something went wrong.[/red]")
+        print("[yellow]Example of how you use this script: C:/Users/YourUser/Downloads/YourProject[/yellow]")
 
 
 

@@ -13,4 +13,7 @@ Requirements - pip:
 <pre>
   pip install rich
 </pre>
+<h3> Projectmaker </h3>
+A script that makes a project folder with assets and src subfolders for you<br>
+<pre>pip install requirements.txt</pre>
 
